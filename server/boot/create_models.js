@@ -1,16 +1,51 @@
 'use strict';
 
-module.exports = function(app) {
-  app.dataSources.localMysql.automigrate('tree', function(err) {
-    if (err) throw err;
+var async = require('async');
 
-    app.models.tree.create([
-        {name: 'oak north'},
-        {name: 'apple south'}
-    ], function(err, tree) {
-      if (err) throw err;
-      console.log('Models created: \n', tree);
+module.exports = function (app) {
+    var localMysqlDs = app.dataSources.localMysql;
+
+    var treeModel = app.models.tree;
+    var treeTypesModel = app.models.tree_types;
+
+    async.parallel({
+        treeTypes: async.apply(createTreeTypes),
+        trees: async.apply(createTrees)
+    }, function(err, results) {
+        if (err) throw err;
+        console.log(results);
+        //createLinks(results.reviewers, results.coffeeShops, function(err) {
+        //    console.log('> models created sucessfully');
+        //});
     });
-  });
+
+    function createTreeTypes(cb) {
+        localMysqlDs.automigrate('tree_types', function (err) {
+            if (err) throw err;
+
+            treeTypesModel.create([
+                {name: 'Персик'},
+                {name: 'Орех'},
+                {name: 'Яблоня'},
+                {name: 'Мандарин'}
+            ], cb);
+        });
+    }
+
+    function createTrees(cb) {
+        localMysqlDs.automigrate('tree', function (err) {
+            if (err) throw err;
+
+            treeModel.create([
+                {name: 'oak north'},
+                {name: 'apple south'}
+            ], cb);
+        });
+    }
+
+    function createLinks(xs, ys, cb) {
+
+    }
+
 };
 

@@ -35,5 +35,9 @@
   "tree": {
     "dataSource": "localMysql",
     "public": true
+  },
+  "tree_types": {
+    "dataSource": "localMysql",
+    "public": true
   }
 }

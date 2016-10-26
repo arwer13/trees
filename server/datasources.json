@@ -2,5 +2,15 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "localMysql": {
+    "host": "localhost",
+    "port": 3306,
+    "url": "mysql://root:root@localhost/trees",
+    "database": "trees",
+    "password": "root",
+    "name": "localMysql",
+    "user": "root",
+    "connector": "mysql"
   }
 }

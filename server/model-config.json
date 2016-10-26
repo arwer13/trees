@@ -31,5 +31,9 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "tree": {
+    "dataSource": "localMysql",
+    "public": true
   }
 }

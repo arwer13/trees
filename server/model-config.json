@@ -39,5 +39,9 @@
   "tree_types": {
     "dataSource": "localMysql",
     "public": true
+  },
+  "files": {
+    "dataSource": "files",
+    "public": true
   }
 }
